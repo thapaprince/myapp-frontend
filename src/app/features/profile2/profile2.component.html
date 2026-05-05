@@ -1,0 +1,54 @@
+<!-- <p>{{name | initials}}</p> -->
+
+<!-- <p>{{name | initials:10:"..."}}</p> -->
+<input appAppclickkey type="text" [(ngModel)]="searchText">
+<div appHighlight>Prince Thapa</div>
+<div [appDynamichover]="'orange'">Renu Thapa</div>
+
+<button [appAppbuttondisable]="true">Click Me</button>
+
+<input type="text" [appAppbuttondisable]="true" placeholder="Disabled input" />
+
+<button (click)="isDisabled = !isDisabled">
+    Toggle Disable
+</button>
+
+<button [appAppbuttondisable]="isDisabled">
+    Target Button
+</button>
+
+
+<div *appAppif="isVisible">Hello...............</div>
+<div>
+
+    <div>
+        Role based access directive
+        <button *appRole="'admin'">Delete</button>
+    </div>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let user of userObjData | initials:searchText">
+                <td>{{user.id}}</td>
+                <td>{{user.name}}</td>
+                <td>{{user.lastName}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.role}}</td>
+                <td>
+                    <button (click)="editUser(user)">Edit</button>
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+</div>

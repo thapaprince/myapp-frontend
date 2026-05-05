@@ -1,0 +1,43 @@
+<div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+  <div class="card shadow p-4" style="width: 350px; border-radius: 12px;">
+    <h3 class="text-center mb-4">Login</h3>
+    <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)">
+      <div class="mb-3">
+        <label for="email">Email</label>
+        <input type="email" name="email" placeholder="enter email" [(ngModel)]="formData.email" required email
+          #email="ngModel">
+
+        <div *ngIf="email.invalid && email.touched">
+          <small *ngIf="email.errors?.['required']">
+            Email is required
+          </small>
+          <small *ngIf="email.errors?.['email']">
+            Invalid email format
+          </small>
+        </div>
+      </div>
+
+      <!-- Approach	Code
+Without #email	loginForm.controls['email'] like loginForm.controls['email']?.invalid
+With #email	email.invalid ✅ -->
+      <div class="mb-3">
+         <label for="email">Password</label>
+        <input type="password" name="password" [(ngModel)]="formData.password" required minlength="6"
+          #password="ngModel" />
+
+        <div *ngIf="password.invalid && password.touched">
+          <small *ngIf="password.errors?.['required']">
+            Password is required
+          </small>
+          <small *ngIf="password.errors?.['minlength']">
+            Minimum 6 characters required
+          </small>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid">
+        Login
+      </button>
+
+    </form>
+  </div>
+</div>
