@@ -1,0 +1,32 @@
+name: Angular CI
+
+on:
+  push:
+    branches: [dev]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Code checkout
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 2. Node setup
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # 3. Install dependencies (professional way)
+      - name: Install dependencies
+        run: npm ci
+
+      # 4. Build Angular app
+      - name: Build Angular app
+        run: npm run build -- --configuration production
+
+      # 5. Docker build (basic)
+      - name: Build Docker Image
+        run: docker build -t angular-app:${{ github.sha }} .
